@@ -133,24 +133,31 @@ calculateButton.addEventListener("click", () =>
     let numberOne = Number(numberOneInput.value);
     let numberTwo = Number(numberTwoInput.value);
 
-    switch(operatorType.value)
+    if (isNaN(numberOne) || isNaN(numberTwo))
     {
-        case "Addition":
-            calculationResult = numberOne + numberTwo;
-            resultArea.innerHTML = `Result: ${calculationResult}`;
-            break;
-        case "Subtraction":
-            calculationResult = numberOne - numberTwo;
-            resultArea.innerHTML = `Result: ${calculationResult}`;
-            break;
-        case "Division":
-            calculationResult = numberOne / numberTwo;
-            resultArea.innerHTML = `Result: ${calculationResult}`;
-            break;
-        case "Multiplication":
-            calculationResult = numberOne * numberTwo;
-            resultArea.innerHTML = `Result: ${calculationResult}`;
-            break;
+        confirm(`Error: one or more inputs is a non number value.`);
+    }
+    else
+    {
+        switch(operatorType.value)
+        {
+            case "Addition":
+                calculationResult = numberOne + numberTwo;
+                resultArea.innerHTML = `Result: ${calculationResult}`;
+                break;
+            case "Subtraction":
+                calculationResult = numberOne - numberTwo;
+                resultArea.innerHTML = `Result: ${calculationResult}`;
+                break;
+            case "Division":
+                calculationResult = numberOne / numberTwo;
+                resultArea.innerHTML = `Result: ${calculationResult}`;
+                break;
+            case "Multiplication":
+                calculationResult = numberOne * numberTwo;
+                resultArea.innerHTML = `Result: ${calculationResult}`;
+                break;
+        }
     }
 });
 
