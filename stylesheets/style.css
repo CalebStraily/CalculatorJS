@@ -1,0 +1,62 @@
+.content
+{
+    background-image: url(./media/black-prism-concept-ai-generated.jpg);
+    background-size:cover;
+    background-position:center;
+}
+
+.header h1
+{
+    padding-top: 40px;
+    background: #000000;
+    background: linear-gradient(to right, #0a0a0a 20%, #73ff00 100%);
+    background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.content-container
+{
+    border: solid;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-image: url(./media/pattern.jpg);
+}
+
+#inputRows
+{
+    justify-content: center;
+}
+
+.img-container img
+{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.noise-borders
+{
+    background-image:url(./media/matrix.gif);
+    width: 100vw;
+    height: 100vw;
+}
+
+.calculationButtons div
+{
+    border: solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.input-selectors div
+{
+    border: solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 10px;
+}
+
+.customer-quote h3
+{
+    margin-top: 40px;
+}
