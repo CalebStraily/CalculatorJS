@@ -123,6 +123,18 @@ for (let i = 0; i < calculatorButtons.length; i++)
             case "CE":
                 inputBoxSelected.value = "";
                 break;
+            case "+":
+                operatorType.value = "Addition";
+                break;
+            case "-":
+                operatorType.value = "Subtraction";
+                break;
+            case "÷":
+                operatorType.value = "Division";
+                break;
+            case "x":
+                operatorType.value = "Multiplication";
+                break;
         }
     })
 }
