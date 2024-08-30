@@ -7,9 +7,43 @@ let resultArea = document.getElementById("resultArea");
 let calculatorButtons = document.querySelectorAll(".calculationButtons div");
 let inputSelectors = document.querySelectorAll(".input-selectors div");
 let inputSelectorsRight = document.querySelectorAll(".input-selectors-right div");
+let calculationRowInputs = document.querySelectorAll("#calculationRows input");
 
 let numberOneIsEnabled = false;
 let numberTwoIsEnabled = false;
+
+for (let i = 0; i < calculationRowInputs.length; i++)
+{
+    calculationRowInputs[i].addEventListener("click", () =>
+    {
+        switch(calculationRowInputs[i].placeholder)
+        {
+            case "Number One":
+                addStyling(inputSelectors[0]);
+                removeStyling(inputSelectors[1]);
+                numberOneIsEnabled = true;
+                numberTwoIsEnabled = false;
+                break;
+            case "Number Two":
+                addStyling(inputSelectors[1]);
+                removeStyling(inputSelectors[0]);
+                numberOneIsEnabled = false;
+                numberTwoIsEnabled = true;
+                break;
+        }
+    })
+
+    function addStyling(element)
+    {
+        element.style.backgroundColor = "green";
+        element.style.color = "white";
+    }
+    function removeStyling(element)
+    {
+        element.style.backgroundColor = "white";
+        element.style.color = "black";
+    }
+}
 
 for (let i = 0;  i < inputSelectorsRight.length; i++)
 {
