@@ -6,9 +6,28 @@ let operatorType = document.getElementById("operatorType");
 let resultArea = document.getElementById("resultArea");
 let calculatorButtons = document.querySelectorAll(".calculationButtons div");
 let inputSelectors = document.querySelectorAll(".input-selectors div");
+let inputSelectorsRight = document.querySelectorAll(".input-selectors-right div");
 
 let numberOneIsEnabled = false;
 let numberTwoIsEnabled = false;
+
+for (let i = 0;  i < inputSelectorsRight.length; i++)
+{
+    inputSelectorsRight[i].addEventListener("mousedown", () =>
+    {
+        inputSelectorsRight[i].style.backgroundColor = "gray";
+    })
+
+    inputSelectorsRight[i].addEventListener("mouseup", () =>
+    {
+        inputSelectorsRight[i].style.backgroundColor = "white";
+    })
+
+    inputSelectorsRight[i].addEventListener("mouseleave", () =>
+    {
+        inputSelectorsRight[i].style.backgroundColor = "white";
+    })
+}
 
 for (let i = 0; i < inputSelectors.length; i++)
 {
@@ -136,6 +155,21 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 operatorType.value = "Multiplication";
                 break;
         }
+    })
+
+    calculatorButtons[i].addEventListener("mousedown", () =>
+    {
+        calculatorButtons[i].style.backgroundColor = "gray";
+    })
+
+    calculatorButtons[i].addEventListener("mouseup", () =>
+    {
+        calculatorButtons[i].style.backgroundColor = "white";
+    })
+
+    calculatorButtons[i].addEventListener("mouseleave", () =>
+    {
+        calculatorButtons[i].style.backgroundColor = "white";
     })
 }
 
