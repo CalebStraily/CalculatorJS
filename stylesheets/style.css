@@ -5,7 +5,7 @@
     height: 100vw;
 }
 
-.content
+.content-column
 {
     background-image: url(./media/black-prism-concept-ai-generated.jpg);
     background-size:cover;
@@ -30,35 +30,30 @@
     background-image: url(./media/pattern.jpg);
 }
 
-.conversionInputs
-{
-    font-size: 30px;
-}
-
-.input-selectors div
+.calculator-border
 {
     border: solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 10px;
-    font-size: 30px !important;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+#seamlessCalculationRow input
+{
+    text-align: right;
+    font-size: 20px;
 }
 
 .calculationButtons div
 {
     border: solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    border-radius: 20px;
+    margin-bottom: 10px;
     font-size: 30px !important;
 }
 
-.input-selectors-right div
+.no-button-space
 {
-    border: solid black;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 10px;
-    font-size: 30px !important;
+    border: none !important;
 }
 
 .img-container img

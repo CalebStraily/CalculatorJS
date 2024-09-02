@@ -1,193 +1,140 @@
 let calculateButton = document.getElementById("submit");
-let resetButton = document.getElementById("reset");
-let numberOneInput = document.getElementById("numberOneInput");
-let numberTwoInput = document.getElementById("numberTwoInput");
-let operatorType = document.getElementById("operatorType");
-let resultArea = document.getElementById("resultArea");
+let clearCalculator = document.getElementById("reset");
 let calculatorButtons = document.querySelectorAll(".calculationButtons div");
-let inputSelectors = document.querySelectorAll(".input-selectors div");
-let inputSelectorsRight = document.querySelectorAll(".input-selectors-right div");
-let calculationRowInputs = document.querySelectorAll("#calculationRows input");
+let seamlessCalcInput = document.getElementById("seamlessCalcInput");
+let seamlessCalcHistory = document.getElementById("seamlessCalcHistory");
 
-let numberOneIsEnabled = false;
-let numberTwoIsEnabled = false;
-
-for (let i = 0; i < calculationRowInputs.length; i++)
-{
-    calculationRowInputs[i].addEventListener("click", () =>
-    {
-        switch(calculationRowInputs[i].placeholder)
-        {
-            case "Number One":
-                addStyling(inputSelectors[0]);
-                removeStyling(inputSelectors[1]);
-                numberOneIsEnabled = true;
-                numberTwoIsEnabled = false;
-                break;
-            case "Number Two":
-                addStyling(inputSelectors[1]);
-                removeStyling(inputSelectors[0]);
-                numberOneIsEnabled = false;
-                numberTwoIsEnabled = true;
-                break;
-        }
-    })
-
-    function addStyling(element)
-    {
-        element.style.backgroundColor = "green";
-        element.style.color = "white";
-    }
-    function removeStyling(element)
-    {
-        element.style.backgroundColor = "white";
-        element.style.color = "black";
-    }
-}
-
-for (let i = 0;  i < inputSelectorsRight.length; i++)
-{
-    inputSelectorsRight[i].addEventListener("mousedown", () =>
-    {
-        inputSelectorsRight[i].style.backgroundColor = "gray";
-    })
-
-    inputSelectorsRight[i].addEventListener("mouseup", () =>
-    {
-        inputSelectorsRight[i].style.backgroundColor = "white";
-    })
-
-    inputSelectorsRight[i].addEventListener("mouseleave", () =>
-    {
-        inputSelectorsRight[i].style.backgroundColor = "white";
-    })
-}
-
-for (let i = 0; i < inputSelectors.length; i++)
-{
-    inputSelectors[i].addEventListener("click", () =>
-    {
-        switch (inputSelectors[i].innerHTML)
-        {
-            case "Number One":
-                switch (true)
-                {
-                    case (numberOneIsEnabled == false && numberTwoIsEnabled == false):
-                        numberOneIsEnabled = true;
-                        addStyling(inputSelectors[i]);
-                        break;
-                    case (numberOneIsEnabled == true && numberTwoIsEnabled == false):
-                        numberOneIsEnabled = false;
-                        removeStyling(inputSelectors[i]);
-                        break;
-                    case (numberOneIsEnabled == false && numberTwoIsEnabled == true):
-                        numberOneIsEnabled = true;
-                        numberTwoIsEnabled = false;
-                        addStyling(inputSelectors[i]);
-                        removeStyling(inputSelectors[1]);
-                        break;
-                }
-                break;
-            case "Number Two":
-                switch (true)
-                {
-                    case (numberOneIsEnabled == false && numberTwoIsEnabled == false):
-                        numberTwoIsEnabled = true;
-                        addStyling(inputSelectors[i]);
-                        break;
-                    case (numberOneIsEnabled == false && numberTwoIsEnabled == true):
-                        numberTwoIsEnabled = false;
-                        removeStyling(inputSelectors[i]);
-                        break;
-                    case (numberOneIsEnabled == true && numberTwoIsEnabled == false):
-                        numberOneIsEnabled = false;
-                        numberTwoIsEnabled = true;
-                        addStyling(inputSelectors[i]);
-                        removeStyling(inputSelectors[0]);
-                        break;
-                }
-                break;
-        }
-
-        function addStyling(element)
-        {
-            element.style.backgroundColor = "green";
-            element.style.color = "white";
-        }
-
-        function removeStyling(element)
-        {
-            element.style.backgroundColor = "white";
-            element.style.color = "black";
-        }
-    })
-}
+let firstNumber;
+let secondNumber;
+let tempOperator;
+let tempResult;
 
 for (let i = 0; i < calculatorButtons.length; i++)
 {
     calculatorButtons[i].addEventListener("click", () =>
     {
-        let inputBoxSelected;
-
-        if (numberOneIsEnabled == true)
-        {
-            inputBoxSelected = numberOneInput;
-        }
-        else if (numberTwoIsEnabled == true)
-        {
-            inputBoxSelected = numberTwoInput;
-        }
-
         switch (calculatorButtons[i].innerHTML)
         {
             case "1":
-                inputBoxSelected.value += "1";
+                seamlessCalcInput.value += "1";
                 break;
             case "2":
-                inputBoxSelected.value += "2";
+                seamlessCalcInput.value += "2";
                 break;
             case "3":
-                inputBoxSelected.value += "3";
+                seamlessCalcInput.value += "3";
                 break;
             case "4":
-                inputBoxSelected.value += "4";
+                seamlessCalcInput.value += "4";
                 break;
             case "5":
-                inputBoxSelected.value += "5";
+                seamlessCalcInput.value += "5";
                 break;
             case "6":
-                inputBoxSelected.value += "6";
+                seamlessCalcInput.value += "6";
                 break;
             case "7":
-                inputBoxSelected.value += "7";
+                seamlessCalcInput.value += "7";
                 break;
             case "8":
-                inputBoxSelected.value += "8";
+                seamlessCalcInput.value += "8";
                 break;
             case "9":
-                inputBoxSelected.value += "9";
+                seamlessCalcInput.value += "9";
                 break;
             case "0":
-                inputBoxSelected.value += "0";
+                seamlessCalcInput.value += "0";
                 break;
             case ".":
-                inputBoxSelected.value += ".";
+                seamlessCalcInput.value += ".";
                 break;
             case "CE":
-                inputBoxSelected.value = "";
+                seamlessCalcInput.value = "";
+                break;
+            case "±":
+                let flippedValue = parseFloat(seamlessCalcInput.value) * -1;
+                seamlessCalcInput.value = flippedValue;
+                break;
+            case "Back":
+                let element = seamlessCalcInput.value;
+                seamlessCalcInput.value = element.slice(0, -1);
+                break;
+            case "%":
+                if (firstNumber != null)
+                {
+                    let inputPercent;
+                    inputPercent = parseFloat(seamlessCalcInput.value) / 100;
+                    seamlessCalcInput.value = inputPercent;
+                }
                 break;
             case "+":
-                operatorType.value = "Addition";
+                numberLogger("+");
                 break;
             case "-":
-                operatorType.value = "Subtraction";
+                numberLogger("-");
                 break;
             case "÷":
-                operatorType.value = "Division";
+                numberLogger("÷");
                 break;
             case "x":
-                operatorType.value = "Multiplication";
+                numberLogger("x");
                 break;
+        }
+
+        function numberLogger(operator)
+        {
+            let tempCalcResult;
+
+            if (firstNumber == null)
+            {
+                firstNumber = parseFloat(seamlessCalcInput.value);
+                tempOperator = operator;
+                seamlessCalcHistory.value = `${firstNumber} ${tempOperator}`;
+                seamlessCalcInput.value = "";
+            }
+            else if (firstNumber != null && secondNumber == null)
+            {
+                secondNumber = parseFloat(seamlessCalcInput.value);
+
+                if (isNaN(secondNumber))
+                {
+                    let element = seamlessCalcHistory.value;
+                    seamlessCalcHistory.value = element.slice(0, -1);
+                    seamlessCalcHistory.value += `${operator}`;
+                    secondNumber = null;
+                    return;
+                }
+
+                switch (tempOperator)
+                {
+                    case "+":
+                        tempCalcResult = firstNumber + secondNumber;
+                        calcHistoryResults();
+                        break;
+                    case "-":
+                        tempCalcResult = firstNumber - secondNumber;
+                        calcHistoryResults();
+                        break;
+                    case "÷":
+                        tempCalcResult = firstNumber / secondNumber;
+                        calcHistoryResults();
+                        break;
+                    case "x":
+                        tempCalcResult = firstNumber * secondNumber;
+                        calcHistoryResults();
+                        break;
+                }
+            }
+
+            function calcHistoryResults()
+            {
+                seamlessCalcHistory.value = `${tempCalcResult} ${operator}`;
+                firstNumber = tempCalcResult;
+                tempCalcResult = "";
+                seamlessCalcInput.value = "";
+                secondNumber = null;
+                tempOperator = operator;
+            }
         }
     })
 
@@ -209,51 +156,51 @@ for (let i = 0; i < calculatorButtons.length; i++)
 
 calculateButton.addEventListener("click", () =>
 {
-    let calculationResult = 0;
-    let numberOne = Number(numberOneInput.value);
-    let numberTwo = Number(numberTwoInput.value);
+    let calculationResult;
+    let numberOne = parseFloat(firstNumber);
+    let numberTwo = parseFloat(seamlessCalcInput.value);
 
-    if (isNaN(numberOne) || isNaN(numberTwo))
+    if (isNaN(numberTwo) || isNaN(numberOne))
     {
-        confirm(`Error: one or more inputs is a non number value.`);
+        confirm("Can't calculate a non number input.");
     }
     else
     {
-        switch(operatorType.value)
+        switch (tempOperator)
         {
-            case "Addition":
+            case "+":
                 calculationResult = numberOne + numberTwo;
-                resultArea.innerHTML = `Result: ${calculationResult}`;
+                seamlessCalcHistory.value = `${numberOne} + ${numberTwo} =`;
+                seamlessCalcInput.value = `${calculationResult}`;
+                tempResult = seamlessCalcInput.value;
                 break;
-            case "Subtraction":
+            case "-":
                 calculationResult = numberOne - numberTwo;
-                resultArea.innerHTML = `Result: ${calculationResult}`;
+                seamlessCalcHistory.value = `${numberOne} - ${numberTwo} =`;
+                seamlessCalcInput.value = `${calculationResult}`;
+                tempResult = seamlessCalcInput.value;
                 break;
-            case "Division":
-                calculationResult = numberOne / numberTwo;
-                resultArea.innerHTML = `Result: ${calculationResult}`;
-                break;
-            case "Multiplication":
+            case "x":
                 calculationResult = numberOne * numberTwo;
-                resultArea.innerHTML = `Result: ${calculationResult}`;
+                seamlessCalcHistory.value = `${numberOne} x ${numberTwo} =`;
+                seamlessCalcInput.value = `${calculationResult}`;
+                tempResult = seamlessCalcInput.value;
                 break;
+            case '÷':
+                calculationResult = numberOne / numberTwo;
+                seamlessCalcHistory.value = `${numberOne} ÷ ${numberTwo} =`;
+                seamlessCalcInput.value = `${calculationResult}`;
+                tempResult = seamlessCalcInput.value;
+                break;                                     
         }
     }
-});
+})
 
-resetButton.addEventListener("click", () =>
+clearCalculator.addEventListener("click", () =>
 {
-    numberOneInput.value = "";
-    numberTwoInput.value = "";
-    resultArea.innerHTML = "";
-    operatorType.value = "Addition";
-
-    numberOneIsEnabled = false;
-    numberTwoIsEnabled = false;
-
-    for (let i = 0; i < inputSelectors.length; i++)
-    {
-        inputSelectors[i].style.backgroundColor = "white";
-        inputSelectors[i].style.color = "black";
-    }
+    seamlessCalcHistory.value = "";
+    seamlessCalcInput.value = "";
+    firstNumber = null;
+    secondNumber = null;
+    tempOperator = null;
 })

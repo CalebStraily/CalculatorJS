@@ -15,7 +15,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 noise-borders"></div>
-            <div class="col-8 content">
+            <div class="col-8 content-column">
                 <div class="container content-container">
                     <div class="row">
                         <div class="col-12">
@@ -26,67 +26,51 @@
                                     </div>
                                 </div>
                             </div>
-                        
-                            <div class="container conversionInputs">
-                                <div class="row">
-                                    <div class="col-12 text-center" id="calculationRows">
-                                        <div class="col-12 text-center" id="row-1">
-                                            <br />
-                                            <input type="text" name="numberOneInput" id="numberOneInput" placeholder="Number One">
-                                            <select name="operatorSelection" id="operatorType">
-                                                <option value="Addition">+</option>
-                                                <option value="Subtraction">-</option>
-                                                <option value="Division">÷</option>
-                                                <option value="Multiplication">x</option>
-                                            </select>
-                                            <input type="text" name="numberTwoInput" id="numberTwoInput" placeholder="Number Two">
+
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-4 calculator-border">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-12 text-center" id="seamlessCalculationRow">
+                                                <br />
+                                                <input type="text" name="seamlessCalcHistory" id="seamlessCalcHistory"> <br />
+                                                <input type="text" name="seamlessCalcInput" id="seamlessCalcInput">
+                                            </div>
+                                            <div class="col-12">
+                                                <br />
+                                            </div>
+                                            <div class="col-12 text-center">
+                                                <div class="row calculationButtons">
+                                                    <div class="col-3">%</div>
+                                                    <div class="col-3" id="reset">C</div>
+                                                    <div class="col-6">CE</div>
+                                                    <div class="col-3">7</div>
+                                                    <div class="col-3">8</div>
+                                                    <div class="col-3">9</div>
+                                                    <div class="col-3">÷</div>
+                                                    <div class="col-3">4</div>
+                                                    <div class="col-3">5</div>
+                                                    <div class="col-3">6</div>
+                                                    <div class="col-3">x</div>
+                                                    <div class="col-3">1</div>
+                                                    <div class="col-3">2</div>
+                                                    <div class="col-3">3</div>
+                                                    <div class="col-3">-</div>
+                                                    <div class="col-3">±</div>
+                                                    <div class="col-3">0</div>
+                                                    <div class="col-3">.</div>
+                                                    <div class="col-3">+</div>
+                                                    <div class="col-6">Back</div>
+                                                    <div class="col-6" id="submit">=</div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-4"></div>
                             </div>
-                        
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <br />
-                                        <h2 id="resultArea"></h2>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-4 input-selectors">
-                                        <div class="col-12 text-center">Number One</div>
-                                        <div class="col-12 text-center">Number Two</div>
-                                    </div>
-                                    <div class="col-4 text-center">
-                                        <div class="row calculationButtons">
-                                            <div class="col-3">7</div>
-                                            <div class="col-3">8</div>
-                                            <div class="col-3">9</div>
-                                            <div class="col-3">+</div>
-                                            <div class="col-3">4</div>
-                                            <div class="col-3">5</div>
-                                            <div class="col-3">6</div>
-                                            <div class="col-3">-</div>
-                                            <div class="col-3">1</div>
-                                            <div class="col-3">2</div>
-                                            <div class="col-3">3</div>
-                                            <div class="col-3">÷</div>
-                                            <div class="col-3">CE</div>
-                                            <div class="col-3">0</div>
-                                            <div class="col-3">.</div>
-                                            <div class="col-3">x</div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 input-selectors-right">
-                                        <div class="col-12 text-center" id="submit">Equals (=)</div>
-                                        <div class="col-12 text-center" id="reset">Reset All Entries</div>
-                                    </div>
-                                </div>
-                            </div>
-
+                            
                             <div class="container img-container">
                                 <div class="row">
                                     <div class="col-12 text-center customer-quote">
@@ -97,7 +81,7 @@
                                         <img class="img-fluid" src="https://media1.tenor.com/m/VrzXhtoSwcsAAAAd/hacker-typing.gif" alt="">
                                     </div>
                                     <div class="col-12 text-center">
-                                        <audio controls autoplay>
+                                        <audio controls autoplay muted>
                                             <source src="./stylesheets/media/TraumaCenter.ogg" type="audio/mp3">
                                         </audio>
                                     </div>
