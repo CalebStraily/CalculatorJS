@@ -5,7 +5,7 @@ let seamlessCalcInput = document.getElementById("seamlessCalcInput");
 let seamlessCalcHistory = document.getElementById("seamlessCalcHistory");
 
 //declare variables
-let firstNumber;
+let firstNumber = null;
 let secondNumber;
 let numberOne;
 let numberTwo;
@@ -75,7 +75,7 @@ for (let i = 0; i < calculatorButtons.length; i++)
             case "±":
                 flippedValue = parseFloat(seamlessCalcInput.value) * -1;
                 seamlessCalcInput.value = "";
-                
+
                 if (firstNumber != null)
                 {
                     //places the flipped value in the calculation history input based on if a temporary result exists
@@ -93,8 +93,8 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 //place the flipped value in the calculation history by default
                 else
                 {
+                    console.log("execute");
                     seamlessCalcHistory.value = flippedValue;
-                    flippedValue = null;
                 }
                 
                 tempResult = null;
@@ -143,12 +143,17 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 tempResult = null;
             }
 
+            console.log(firstNumber);
+            console.log(flippedValue);
+
             //if firstNumber is null, sends the seamlessCalcInput.value to the seamlessCalcHistory.value
             //also keeps persistent track of the firstNumber and tempOperator
             if (firstNumber == null || flippedValue != null)
             {
                 firstNumber = parseFloat(seamlessCalcInput.value);
                 tempOperator = operator;
+
+                console.log(tempOperator);
 
                 //sets the firstNumber to the flippedValue if is not null
                 if (flippedValue != null)
@@ -208,6 +213,8 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 seamlessCalcInput.value = "";
                 secondNumber = null;
                 tempOperator = operator;
+
+                console.log(tempOperator);
             }
         }
 
@@ -228,6 +235,10 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 numberOne = parseFloat(firstNumber);
                 numberTwo = parseFloat(seamlessCalcInput.value);
             }
+
+            console.log(numberOne);
+            console.log(numberTwo);
+            console.log(tempOperator);
 
             //makes sure the input in number one and two are numbers
             if (isNaN(numberTwo) || isNaN(numberOne))
