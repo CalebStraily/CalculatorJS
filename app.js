@@ -1,5 +1,4 @@
 //get elements/IDs from HTML
-let clearCalculator = document.getElementById("reset");
 let calculatorButtons = document.querySelectorAll(".calculationButtons div");
 let seamlessCalcInput = document.getElementById("seamlessCalcInput");
 let seamlessCalcHistory = document.getElementById("seamlessCalcHistory");
@@ -10,7 +9,7 @@ let secondNumber;
 let numberOne;
 let numberTwo;
 let tempOperator;
-let tempResult;
+let finalCalculation;
 let flippedValue;
 
 //loops for every button on the calculator
@@ -19,49 +18,19 @@ for (let i = 0; i < calculatorButtons.length; i++)
     //creates an on click event listener for each calculator button
     calculatorButtons[i].addEventListener("click", () =>
     {
+        for (let j = 0; j < calculatorButtons[i].innerHTML.length; j++)
+        {
+            switch (parseFloat(calculatorButtons[i].innerHTML))
+            {
+                case (j = parseFloat(calculatorButtons[i].innerHTML)):
+                    resultCheck();
+                    seamlessCalcInput.value += j;
+                    break;
+            }
+        }
+    
         switch (calculatorButtons[i].innerHTML)
         {
-            //cases "0 - 9" will append their correlating value to the input area of the screen
-            case "1":
-                resultCheck();
-                seamlessCalcInput.value += "1";
-                break;
-            case "2":
-                resultCheck();
-                seamlessCalcInput.value += "2";
-                break;
-            case "3":
-                resultCheck();
-                seamlessCalcInput.value += "3";
-                break;
-            case "4":
-                resultCheck();
-                seamlessCalcInput.value += "4";
-                break;
-            case "5":
-                resultCheck();
-                seamlessCalcInput.value += "5";
-                break;
-            case "6":
-                resultCheck();
-                seamlessCalcInput.value += "6";
-                break;
-            case "7":
-                resultCheck();
-                seamlessCalcInput.value += "7";
-                break;
-            case "8":
-                resultCheck();
-                seamlessCalcInput.value += "8";
-                break;
-            case "9":
-                resultCheck();
-                seamlessCalcInput.value += "9";
-                break;
-            case "0":
-                resultCheck();
-                seamlessCalcInput.value += "0";
-                break;
             //appends a decimal to the input area
             case ".":
                 resultCheck();
@@ -71,6 +40,10 @@ for (let i = 0; i < calculatorButtons.length; i++)
             case "CE":
                 seamlessCalcInput.value = "";
                 break;
+            //clears all values stored in both input areas and resets calculation variables
+            case "C":
+                clearCalculator();
+                break;
             //flips the number to a positive or negative
             case "±":
                 flippedValue = parseFloat(seamlessCalcInput.value) * -1;
@@ -79,7 +52,7 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 if (firstNumber != null)
                 {
                     //places the flipped value in the calculation history input based on if a temporary result exists
-                    if (tempResult != null)
+                    if (finalCalculation != null)
                     {
                         seamlessCalcHistory.value = flippedValue;
                     }
@@ -93,11 +66,10 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 //place the flipped value in the calculation history by default
                 else
                 {
-                    console.log("execute");
                     seamlessCalcHistory.value = flippedValue;
                 }
                 
-                tempResult = null;
+                finalCalculation = null;
                 break;
             //backspaces the input by one character
             case "Back":
@@ -134,17 +106,14 @@ for (let i = 0; i < calculatorButtons.length; i++)
         //will also conduct an ongoing calculation of the user's inputs if they have not pressed the equals button for the final calculation
         function numberLogger(operator)
         {
-            let tempCalcResult;
+            let tempCalculation;
 
-            //resets the ongoing calculation logic of the user wants to continue making changes the number stored in tempResult
-            if (tempResult == seamlessCalcInput.value)
+            //resets the ongoing calculation logic of the user wants to continue making changes the number stored in finalCalculation
+            if (finalCalculation == seamlessCalcInput.value)
             {
                 firstNumber = null;
-                tempResult = null;
+                finalCalculation = null;
             }
-
-            console.log(firstNumber);
-            console.log(flippedValue);
 
             //if firstNumber is null, sends the seamlessCalcInput.value to the seamlessCalcHistory.value
             //also keeps persistent track of the firstNumber and tempOperator
@@ -152,8 +121,6 @@ for (let i = 0; i < calculatorButtons.length; i++)
             {
                 firstNumber = parseFloat(seamlessCalcInput.value);
                 tempOperator = operator;
-
-                console.log(tempOperator);
 
                 //sets the firstNumber to the flippedValue if is not null
                 if (flippedValue != null)
@@ -185,19 +152,19 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 switch (tempOperator)
                 {
                     case "+":
-                        tempCalcResult = firstNumber + secondNumber;
+                        tempCalculation = firstNumber + secondNumber;
                         calcHistoryResults();
                         break;
                     case "-":
-                        tempCalcResult = firstNumber - secondNumber;
+                        tempCalculation = firstNumber - secondNumber;
                         calcHistoryResults();
                         break;
                     case "÷":
-                        tempCalcResult = firstNumber / secondNumber;
+                        tempCalculation = firstNumber / secondNumber;
                         calcHistoryResults();
                         break;
                     case "x":
-                        tempCalcResult = firstNumber * secondNumber;
+                        tempCalculation = firstNumber * secondNumber;
                         calcHistoryResults();
                         break;
                 }
@@ -207,14 +174,12 @@ for (let i = 0; i < calculatorButtons.length; i++)
             //resets a series of variables so that the code is reusable
             function calcHistoryResults()
             {
-                seamlessCalcHistory.value = `${tempCalcResult} ${operator}`;
-                firstNumber = tempCalcResult;
-                tempCalcResult = "";
+                seamlessCalcHistory.value = `${tempCalculation} ${operator}`;
+                firstNumber = tempCalculation;
+                tempCalculation = "";
                 seamlessCalcInput.value = "";
                 secondNumber = null;
                 tempOperator = operator;
-
-                console.log(tempOperator);
             }
         }
 
@@ -223,9 +188,9 @@ for (let i = 0; i < calculatorButtons.length; i++)
         {
             let calculationResult;
 
-            //allows the user to continue using the same calculation formula, using the value in tempResult as number one for the formula
-            //if tempResult is equal to the value in seamlessCalcInput
-            if (tempResult == seamlessCalcInput.value)
+            //allows the user to continue using the same calculation formula, using the value in finalCalculation as number one for the formula
+            //if finalCalculation is equal to the value in seamlessCalcInput
+            if (finalCalculation == seamlessCalcInput.value)
             {
                 numberOne = parseFloat(seamlessCalcInput.value);
             }
@@ -235,10 +200,6 @@ for (let i = 0; i < calculatorButtons.length; i++)
                 numberOne = parseFloat(firstNumber);
                 numberTwo = parseFloat(seamlessCalcInput.value);
             }
-
-            console.log(numberOne);
-            console.log(numberTwo);
-            console.log(tempOperator);
 
             //makes sure the input in number one and two are numbers
             if (isNaN(numberTwo) || isNaN(numberOne))
@@ -254,25 +215,25 @@ for (let i = 0; i < calculatorButtons.length; i++)
                         calculationResult = numberOne + numberTwo;
                         seamlessCalcHistory.value = `${numberOne} + ${numberTwo} =`;
                         seamlessCalcInput.value = `${calculationResult}`;
-                        tempResult = seamlessCalcInput.value;
+                        finalCalculation = seamlessCalcInput.value;
                         break;
                     case "-":
                         calculationResult = numberOne - numberTwo;
                         seamlessCalcHistory.value = `${numberOne} - ${numberTwo} =`;
                         seamlessCalcInput.value = `${calculationResult}`;
-                        tempResult = seamlessCalcInput.value;
+                        finalCalculation = seamlessCalcInput.value;
                         break;
                     case "x":
                         calculationResult = numberOne * numberTwo;
                         seamlessCalcHistory.value = `${numberOne} x ${numberTwo} =`;
                         seamlessCalcInput.value = `${calculationResult}`;
-                        tempResult = seamlessCalcInput.value;
+                        finalCalculation = seamlessCalcInput.value;
                         break;
                     case '÷':
                         calculationResult = numberOne / numberTwo;
                         seamlessCalcHistory.value = `${numberOne} ÷ ${numberTwo} =`;
                         seamlessCalcInput.value = `${calculationResult}`;
-                        tempResult = seamlessCalcInput.value;
+                        finalCalculation = seamlessCalcInput.value;
                         break;                                     
                 }
             }
@@ -281,14 +242,24 @@ for (let i = 0; i < calculatorButtons.length; i++)
         //checks if a temporary result has been made and will clear the calculator for a new calculation if true
         function resultCheck()
         {
-            if (tempResult != null)
+            if (finalCalculation != null)
             {
-                tempResult = null;
+                finalCalculation = null;
                 seamlessCalcInput.value = null;
                 seamlessCalcHistory.value = null;
                 firstNumber = null;
                 secondNumber = null;
             }
+        }
+
+        //resets all the input fields on the calculator and variables that should be null when a new calculation is made
+        function clearCalculator()
+        {
+            seamlessCalcHistory.value = "";
+            seamlessCalcInput.value = "";
+            firstNumber = null;
+            secondNumber = null;
+            tempOperator = null;
         }
     })
 
@@ -309,13 +280,3 @@ for (let i = 0; i < calculatorButtons.length; i++)
         calculatorButtons[i].style.backgroundColor = "white";
     })
 }
-
-//resets all the input fields on the calculator and variables that should be null when a new calculation is made
-clearCalculator.addEventListener("click", () =>
-{
-    seamlessCalcHistory.value = "";
-    seamlessCalcInput.value = "";
-    firstNumber = null;
-    secondNumber = null;
-    tempOperator = null;
-})
